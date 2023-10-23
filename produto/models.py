@@ -5,7 +5,7 @@ from django.conf import settings
 
 
 class Produto(models.Model):
-    nome = models.CharField(max_length=250)
+    nome = models.CharField(max_length=255)
     descricao_curta = models.TextField(max_length=255)
     descricao_longa = models.TextField()
     imagem = models.ImageField(
