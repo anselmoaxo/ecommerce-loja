@@ -16,13 +16,10 @@
 
       <p class="lead">
         {% if produto.preco_marketing_promocional %}
-        <span id="variation-preco" class="lead product-price">
+        <span id="variation-preco-promocional" class="lead product-price">
           {{ produto.preco_marketing_promocional | formata_preco}}</span
         >
-        <span
-          id="variation-preco-promocional"
-          class="lead product-old-price text-muted"
-        >
+        <span id="variation-preco" class="lead product-old-price text-muted">
           {{ produto.preco_marketing | formata_preco}}</span
         >
       </p>
@@ -31,25 +28,39 @@
         <span id="variation-preco" class="lead product-price">
           {{ produto.preco_marketing | formata_preco}}</span
         >
-      </p>
-      {% endif %}
 
-      <form action="/addtocart/" id="form-add-to-cart">
+        {% endif %}
+      </p>
+
+      <form action="{% url "produto:adicionarcarrinho" %}" id="form-add-to-cart">
         <div class="form-group">
           <select
             id="select-variacoes"
             name="vid"
             class="form-control form-control-lg"
           >
-            {% for variacao in produto.variacao_set.all %}
+            {% for variacao in produto.variacao_set.all %} 
+            {% if variacao.preco_promocional %}
             <option
-              data-preco="{{ variacao.preco}}"
-              data-preco-promocional="{{ variacao.preco_promocional}}"
-              value="{{ variacao.id}}"
-            >
-              {{ variacao.nome}}
+              data-preco="{{ variacao.preco | formata_preco}}"
+              data-preco-promocional="{{ variacao.preco_promocional | formata_preco}}"
+              value="{{ variacao.id }}">
+              {% if variaco.nome %}
+              {{ variaco.nome }}
+              {% else %}
+              {{ variacao }}
+              {% endif %}
             </option>
-            {% endfor %}
+            {% else %}
+            <option data-preco="{{ variacao.preco| formata_preco }}" value="{{ variacao.id }}">
+              {% if variaco.nome %}
+              {{ variaco.nome }}
+              {% else %}
+              {{ variacao }}
+              {% endif %}
+             
+            </option>
+            {% endif %} {% endfor %}
           </select>
         </div>
 
