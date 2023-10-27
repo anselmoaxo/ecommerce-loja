@@ -1,4 +1,10 @@
-{% extends 'base.html' %} {% load omfilters %} {% block content %}
+{% extends 'base.html' %} 
+{% load omfilters %}
+{% load static %}
+
+ {% block content %}
+
+{% if carrinho %}
 
         <div class="row mt-3">
             <div class="col">
@@ -14,24 +20,37 @@
                             <th>QTD.</th>
                             <th>Total</th>
                         </tr>
-
-
+                        {% for linha  in  carrinho.values %}
                         <tr>
                             <td class="d-none d-lg-block">
-                                <img class="cart-img" src="imgs/7eb9d706-b8e3-48d0-957e-25f4a722f944.jpg">
+                                <img class="cart-img" src="{% get_media_prefix %}{{linha.imagem}}">
                             </td>
                             <td>
-                                Nome do produto que o cliente está comprando
-                                <a class="ml-3" href="#">
+                                <a href="{% url "produto:detalhe" linha.slug %}">
+                                {{ linha.produto_nome }}
+                            </a>
+                                <a class="ml-3" href="{% url "produto:removerdocarrinho" %}?vid={{ linha.variacao_id }}">
                                     <i class="fas fa-times-circle text-danger" aria-hidden="true"></i>
                                 </a>
                             </td>
-                            <td>Variação</td>
-                            <td>2x</td>
-                            <td>R$ 10500,59</td>
+                            <td>{{ linha.variacao_nome }}</td>
+                            <td>{{ linha.quantidade }}x
+                                {% if linha.preco_unitario_promocional %}
+                                {{ linha.preco_unitario_promocional | formata_preco}}
+                                {% else %}
+                                {{ linha.preco_unitario | formata_preco }}
+                                {% endif %}
+
+                                
+                            </td>
+                            {% if linha.preco_quantitativo_promocional %}
+                            <td>{{ linha.preco_quantitativo_promocional | formata_preco}}</td>
+                            {% else %}
+                            <td>{{ linha.preco_quantitativo | formata_preco}}</td>
+                            {% endif %}
                         </tr>
 
-
+                        {% endfor %}
                     </table>
                 </div>
             </div>
@@ -58,5 +77,17 @@
                 </a>
             </div>
         </div>
+        {% else %}
+        <div class="row mt-3">
+            <div class="col">
+                <h3>Carrinho de compras</h3>
+                <p class="lead">Seu Carrinho está vazio</p>
+            </a>
+            <a class="ml-3" href="{% url "produto:lista" %}">
+                <p><i class="fa fa-shopping-cart" aria-hidden="true"></i> Voltar as Compras </p>
+            </a>
 
-
+            </div>
+        </div>
+        {% endif %}
+{% endblock %}
