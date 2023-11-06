@@ -79,5 +79,10 @@ ul.errorlist li {
     text-decoration: none;
 }
 .cart-img {
-    max-width: 150px;
+    max-width: 100px;
+}
+
+.img-hover:hover {
+    filter: brightness(90%); /* Ajuste o valor para controlar o nível de escurecimento */
+    transition: filter 0.3s ease; /* Adicione uma transição suave para o efeito */
 }

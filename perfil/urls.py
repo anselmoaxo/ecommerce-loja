@@ -5,11 +5,11 @@ app_name = "perfil"
 
 urlpatterns = [
     path("", views.CriarPerfil.as_view(), name="criar"),
-    path("atualizar", views.AtualizarPerfil.as_view(), name="atualizar"),
+    path("atualizar/", views.AtualizarPerfil.as_view(), name="atualizar"),
     path(
-        "login",
+        "login/",
         views.Login.as_view(),
         name="login",
     ),
-    path("logout", views.Logout.as_view(), name="logout"),
+    path("logout/", views.Logout.as_view(), name="logout"),
 ]
