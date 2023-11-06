@@ -1,7 +1,7 @@
 {% load static %}
 {% load omfilters %}
 
-<nav class="navbar navbar-dark bg-primary navbar-expand-lg ">
+<nav class="navbar navbar-dark bg-primary navbar-expand-sm shadow-lg p-1 mb-4 bg-info rounded sticky-top  ">
   <a class="navbar-brand" href="{% url 'produto:lista' %}">AXO E-commerce</a>
   <button
     class="navbar-toggler"
@@ -25,12 +25,15 @@
     </form>
   </div>
 
-    <ul class="navbar-nav ml-auto">
+    <ul class="navbar-nav ">
         {% if request.user.is_authenticated %}
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle p-2 mb-2 bg-info text-white"href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
-                Bem vindo <strong> {{ request.user.first_name }}</strong> sua Conta
+                <span class="nav-cart-icon mr-1">
+                  <i class="fas fa-user-check fa-sm"></i>
+                  </span>
+                Bem vindo <strong> {{ request.user.first_name }}</strong>
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="">Meus pedidos</a>
@@ -41,7 +44,10 @@
         {% else %}
         <li class="nav-item">
              
-            <a class="nav-link p-2 mb-2 bg-info text-white" href="{% url 'perfil:criar' %}">Entrar/Cadastrar</a>
+            <a class="nav-link p-2 mb-2 bg-info text-white" href="{% url 'perfil:criar' %}">
+              <span class="nav-cart-icon mr-1">
+                <i class="fas fa-user"></i>
+                </span>Entrar/Cadastrar</a>
         </li>
        
         {% endif %}
@@ -49,14 +55,15 @@
       {% if request.session.carrinho %}
       <li class="nav-item">
         <a class="nav-link nav-cart-link active p-2 mb-2 bg-info text-white" href="{% url 'produto:carrinho' %}">
-          <span class="nav-cart-text mr-1"> Carrinho </span>
-          <span class="nav-cart-count mr-1">
-            <strong>{{ request.session.carrinho | cart_total_qtd }}x</strong>
-          </span>
-          <span class="nav-cart-icon mr-2">
+          <span class="nav-cart-text mr-1">Carrinho</span>
+          <span class="nav-cart-icon mr-0">
             <i class="fas fa-shopping-cart"></i>
 
           </span>
+          <span class="nav-cart-count mr-1">
+            <strong>{{ request.session.carrinho|cart_total_qtd }}x</strong>
+          </span>
+          
         </a>
       </li>
      {% endif %} 

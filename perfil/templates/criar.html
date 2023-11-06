@@ -14,7 +14,7 @@
 
         <form method="POST" action="{% url 'perfil:login' %}">
             {% csrf_token %}
-            <div class="form-group">
+            <div class="form-group ">
                 <label for="InputUsuario1">Usuário</label>
                 <input type="text" name='username' class="form-control" id="InputUsuario1"
                     aria-describedby="usuarioHelp" placeholder="Digite seu usuário">
@@ -31,7 +31,7 @@
     </div>
     {% endif %}
 
-    <div class="col-lg mt-3">
+    <div class="col-lg mt-3 shadow p-4 mb-4 bg-white">
 
         {% block titulocadastro %}
         <h4>Cadastro</h4>
