@@ -33,12 +33,13 @@
                 <span class="nav-cart-icon mr-1">
                   <i class="fas fa-user-check fa-sm"></i>
                   </span>
-                Bem vindo <strong> {{ request.user.first_name }}</strong>
+                Minha Conta 
             </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="">Meus pedidos</a>
-                <a class="dropdown-item" href="{% url 'perfil:criar' %}">Atualizar meus dados</a>
-                <a class="dropdown-item" href="{% url 'perfil:logout' %}">Sair</a>
+            <div class="dropdown-menu shadow-lg p-2 mb-4 bg-ligth" aria-labelledby="navbarDropdown">
+              <p class="dropdown-item  border-bottom border-info">Bem Vindo ,"{{ request.user.first_name }}"</p>
+                <a class="dropdown-item " href="">Meus pedidos</a>
+                <a class="dropdown-item " href="{% url 'perfil:criar' %}">Atualizar meus dados</a>
+                <a class="dropdown-item " href="{% url 'perfil:logout' %}">Sair</a>
             </div>
         </li>
         {% else %}
