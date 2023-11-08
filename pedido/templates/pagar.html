@@ -8,11 +8,122 @@
 
 {% block content %}
 <div class="row">
-    <div class="col">
+    <div class="col shadow-sm p-1 mb-4 bg-white">
         <h3>Escolha o método de pagamento</h3>
-        <p>Para o desenvolvedor: adicione seu método de pagamento preferido.</p>
+        <div class="my-3">
+            <div class="form-check">
+              <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked="" required="">
+              <label class="form-check-label" for="credit">Cartão de Credito</label>
+            </div>
+            <div class="form-check">
+              <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required="">
+              <label class="form-check-label" for="debit">PIX</label>
+            </div>
+            <div class="form-check">
+              <input id="paypal" name="paymentMethod" type="radio" class="form-check-input" required="">
+              <label class="form-check-label" for="paypal">PayPal</label>
+            </div>
+          </div>
+<div class="row gy-3">
+            <div class="col-md-6">
+              <label for="cc-name" class="form-label">Nome no Cartão</label>
+              <input type="text" class="form-control" id="cc-name" placeholder="" required="">
+              <small class="text-muted">Nome completo conforme exibido no cartão</small>
+              <div class="invalid-feedback">
+                Name on card is required
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <label for="cc-number" class="form-label">Número do Cartão de Crédito</label>
+              <input type="text" class="form-control" id="cc-number" placeholder="" required="">
+              <div class="invalid-feedback">
+                Credit card number is required
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <label for="cc-expiration" class="form-label">Data Expiração</label>
+              <input type="text" class="form-control" id="cc-expiration" placeholder="" required="">
+              <div class="invalid-feedback">
+                Expiration date required
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <label for="cc-cvv" class="form-label">CVV</label>
+              <input type="text" class="form-control" id="cc-cvv" placeholder="" required="">
+              <div class="invalid-feedback">
+                Security code required
+              </div>
+            </div>
+          </div>
+          
     </div>
 </div>
+<h2 class='text-center '>Confirme abaixo suas Compras</h2>
+<div class="row">
+    <div class="col shadow-sm p-1 mb-4 bg-white">
+        
+        <h3>{{pedido}}</h3>
 
+        <div class="row mt-4">
+            <div class="col-lg-2 font-weight-bold">Número do pedido:</div>
+            <div class="col-lg-4">{{pedido.id}}</div>
+            <div class="col-lg-2 font-weight-bold">Total a pagar:</div>
+            <div class="col-lg-4">{{pedido.total|formata_preco}}</div>
+
+            <div class="col-lg-2 font-weight-bold">QTD. Itens:</div>
+            <div class="col-lg-4">{{pedido.qtd_total}}</div>
+            <div class="col-lg-2 font-weight-bold">Status:</div>
+            <div class="col-lg-4">{{pedido.get_status_display}}</div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col">
+                <h3>Produtos</h3>
+            </div>
+        </div>
+
+        <div class="table-responsive mt-3">
+            <table class="table">
+                <tr>
+                    <th class="d-none d-lg-block">Imagem</th>
+                    <th>Produto</th>
+                    <th>V.</th>
+                    <th>QTD.</th>
+                    <th>Total</th>
+                </tr>
+                 
+                {% for item in pedido.itempedido_set.all %}
+
+                <tr>
+                    <td class="d-none d-lg-block">
+                        <img class="cart-img" src="{% get_media_prefix %}{{item.imagem}}">
+                    </td>
+                    <td>{{item.produto}}</td>
+                    <td>{{item.variacao}}</td>
+                    <td>{{item.quantidade}}</td>
+
+                    {% if  item.preco_promocional %}
+                    <td>{{item.preco_promocional|formata_preco}}</td>
+                    {% else %}
+                    <td>{{item.preco|formata_preco}}</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+
+        <div class="row mt-4">
+            <div class="col">
+                <a href="#" class="btn btn-primary btn-block btn-lg">Pagar</a>
+            </div>
+        </div>
+
+
+    </div>
+</div>
 
 {% endblock %}

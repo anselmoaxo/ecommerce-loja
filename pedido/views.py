@@ -1,5 +1,10 @@
-from django.shortcuts import render, redirect, HttpResponse
-from django.views.generic.list import ListView
+from typing import Any
+from django import http
+from django.db import models
+from django.shortcuts import render, redirect, reverse
+from django.views.generic import ListView, DetailView
+
+from django.http import HttpResponse
 from django.views import View
 from django.contrib import messages
 from produto.models import Variacao
@@ -7,9 +12,23 @@ from pedido.models import Pedido, ItemPedido
 from utils import utils
 
 
-class PagarPedido(View):
-    def get(self, *args, **kwargs):
-        return HttpResponse("Pagar")
+class DispatchLoginRequired(View):
+    def dispatch(self, *args: Any, **kwargs):
+        if not self.request.user.is_authenticated:
+            return redirect("perfil:criar")
+        return super().dispatch(*args, **kwargs)
+
+
+class PagarPedido(DispatchLoginRequired, DetailView):
+    template_name = "pagar.html"
+    model = Pedido
+    pk_url_kwarg = "pk"
+    context_object_name = "pedido"
+
+    def get_queryset(self, *args, **kwargs):
+        query = super().get_queryset(*args, **kwargs)
+        query = query.filter(usuario=self.request.user)
+        return query
 
 
 class SalvarPedido(View):
@@ -88,7 +107,7 @@ class SalvarPedido(View):
         )
 
         del self.request.session["carrinho"]
-        return redirect("pedido:lista")
+        return redirect(reverse("pedido:pagar", kwargs={"pk": pedido.pk}))
 
 
 class DetalhePedido(View):
