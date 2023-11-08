@@ -1,4 +1,6 @@
-{% extends 'base.html' %} {% load omfilters %} {% block content %}
+{% extends 'base.html' %} {% load omfilters %}
+{% block titulo %} {{produto.nome}}  | {% endblock %} 
+{% block content %}
 <div class="row ">
   <div class="col-lg ">
     <div class="row no-gutters ">
@@ -17,10 +19,10 @@
       <p class="lead">
         {% if produto.preco_marketing_promocional %}
         <span id="variation-preco-promocional" class="lead product-price">
-          {{ produto.preco_marketing_promocional | formata_preco}}</span
+          {{ produto.preco_marketing_promocional |formata_preco}}</span
         >
         <span id="variation-preco" class="lead product-old-price text-muted">
-          {{ produto.preco_marketing | formata_preco}}</span
+          {{ produto.preco_marketing |formata_preco}}</span
         >
       </p>
       {% else %}

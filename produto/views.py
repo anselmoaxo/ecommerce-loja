@@ -14,6 +14,7 @@ class ListaProduto(ListView):
     template_name = "lista.html"
     context_object_name = "lista_produtos"
     paginate_by = 9
+    ordering = ["-id"]
 
 
 class DetalheProduto(DetailView):

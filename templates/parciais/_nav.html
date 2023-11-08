@@ -37,7 +37,7 @@
             </a>
             <div class="dropdown-menu shadow-lg p-2 mb-4 bg-ligth" aria-labelledby="navbarDropdown">
               <p class="dropdown-item  border-bottom border-info">Bem Vindo ,"{{ request.user.first_name }}"</p>
-                <a class="dropdown-item " href="">Meus pedidos</a>
+                <a class="dropdown-item " href="{% url 'pedido:listar' %}">Meus pedidos</a>
                 <a class="dropdown-item " href="{% url 'perfil:criar' %}">Atualizar meus dados</a>
                 <a class="dropdown-item " href="{% url 'perfil:logout' %}">Sair</a>
             </div>

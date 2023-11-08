@@ -12,14 +12,14 @@ from pedido.models import Pedido, ItemPedido
 from utils import utils
 
 
-class DispatchLoginRequired(View):
+class DispatchLoginRequiredMixin(View):
     def dispatch(self, *args: Any, **kwargs):
         if not self.request.user.is_authenticated:
             return redirect("perfil:criar")
         return super().dispatch(*args, **kwargs)
 
 
-class PagarPedido(DispatchLoginRequired, DetailView):
+class PagarPedido(DispatchLoginRequiredMixin, DetailView):
     template_name = "pagar.html"
     model = Pedido
     pk_url_kwarg = "pk"
@@ -110,10 +110,16 @@ class SalvarPedido(View):
         return redirect(reverse("pedido:pagar", kwargs={"pk": pedido.pk}))
 
 
-class DetalhePedido(View):
-    pass
+class DetalhePedido(DispatchLoginRequiredMixin, DetailView):
+    model = Pedido
+    context_object_name = "pedido"
+    template_name = "detalhar.html"
+    pk_url_kwarg = "pk"
 
 
-class Lista(View):
-    def get(self, *args, **kwargs):
-        return HttpResponse("Lista")
+class Lista(DispatchLoginRequiredMixin, ListView):
+    model = Pedido
+    context_object_name = "pedidos"
+    template_name = "listar.html"
+    paginate_by = 10
+    ordering = ["-id"]
