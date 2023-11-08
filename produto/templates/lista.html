@@ -10,7 +10,7 @@
       {% for produto in lista_produtos %}
       <div class=" card border  border-light shadow-lg p-0 mb-4 bg-transparent rounded"  style="width:260px">
         {% if produto.imagem %}
-        <a href="{{ produto.slug}}">
+        <a href="{% url 'produto:detalhe' produto.slug %}">
   
           <img
             class="card-img-top mx-auto d-block rounded data-toggle="tooltip" data-placement="top" title="{{produto.nome}}!" 
@@ -47,7 +47,7 @@
           class="card-footer bg-transparent border-light shadow-sm p-2 mb-1 text-center"
         >
           <a
-            href="{{ produto.slug }}"
+            href="{% url 'produto:detalhe' produto.slug %}"
             class="btn btn-info btn-sm m-1 btn-block"
           >
             <i class="fa fa-shopping-cart" aria-hidden="true"></i>

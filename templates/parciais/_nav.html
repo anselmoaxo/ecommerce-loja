@@ -19,9 +19,9 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     
   <div class="mx-auto"> <!-- Use a classe 'mx-auto' para centralizar horizontalmente -->
-    <form class="form-inline">
-      <input class="form-control mr-sm-2 w-auto p-2 type="search placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-dark my-5 my-sm-0 " type="submit">Search</button>
+    <form class="form-inline m" method="GET" action="{% url 'produto:busca' %}">
+      <input  name="termo" value="{{request.GET.termo }}" class= "form-control mr-sm-2 w-auto p-2 "type="search"  placeholder="Busca" aria-label="Search">
+      <button class="btn btn-outline-dark my-5 my-sm-0 " type="submit">Busca</button>
     </form>
   </div>
 
