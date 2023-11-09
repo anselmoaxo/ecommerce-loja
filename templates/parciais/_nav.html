@@ -1,7 +1,7 @@
 {% load static %}
 {% load omfilters %}
 
-<nav class="navbar navbar-dark bg-primary navbar-expand-sm shadow-lg p-1 mb-4 bg-info rounded sticky-top  ">
+<nav class="navbar navbar-dark bg-primary navbar-expand-sm shadow-lg p-1 mb-4 bg-primary rounded sticky-top  ">
   <a class="navbar-brand" href="{% url 'produto:lista' %}">AXO E-commerce</a>
   <button
     class="navbar-toggler"
@@ -17,45 +17,54 @@
 
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="mx-auto">
+      <form class="form-inline ml-5" method="GET" action="{% url 'produto:busca' %}">
+        <div class="input-group" style="width: 600px;">
+          <input name="termo" value="{{ request.GET.termo }}" class="form-control col-sm-8" type="search" placeholder="O que você está procurando?" aria-label="Search">
+          <div class="input-group-append">
+            <button class="btn btn-outline-white border" type="submit"><i class="fas fa-search"></i></button>
+          </div>
+        </div>
+      </form>
+    </div>
     
-  <div class="mx-auto " style="width: 600px;"> <!-- Use a classe 'mx-auto' para centralizar horizontalmente -->
-    <form class="form-inline m" method="GET" action="{% url 'produto:busca' %}">
-      <input  name="termo" value="{{request.GET.termo }}" class= "form-control col-sm-8 "type="search"  placeholder="O que você está procurando?" aria-label="Search">
-      <button class="btn btn-outline-dark my-5 my-sm-0 " type="submit">Busca</button>
-    </form>
-  </div>
 
     <ul class="navbar-nav ">
         {% if request.user.is_authenticated %}
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle p-2 mb-2 bg-info text-white"href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+        <li class="nav-item dropdown  p-2 mr-3">
+            <a class="nav-link dropdown-toggle p-2 mb-2  text-white"href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
                 <span class="nav-cart-icon mr-1">
                   <i class="fas fa-user-check fa-sm"></i>
                   </span>
-                Minha Conta 
+                  Bem Vindo, <strong>{{ request.user.first_name }}</strong>
             </a>
-            <div class="dropdown-menu shadow-lg p-2 mb-4 bg-ligth" aria-labelledby="navbarDropdown">
-              <p class="dropdown-item  border-bottom border-info">Bem Vindo ,"{{ request.user.first_name }}"</p>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item " href="{% url 'pedido:listar' %}">Meus pedidos</a>
                 <a class="dropdown-item " href="{% url 'perfil:criar' %}">Atualizar meus dados</a>
                 <a class="dropdown-item " href="{% url 'perfil:logout' %}">Sair</a>
             </div>
         </li>
         {% else %}
-        <li class="nav-item">
-             
-            <a class="nav-link p-2 mb-2 bg-info text-white" href="{% url 'perfil:login' %}">
+        <li class="nav-item dropdown  p-2 mr-3">
+          <a class="nav-link dropdown-toggle p-2 mb-2  text-white"href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
               <span class="nav-cart-icon mr-1">
-                <i class="fas fa-user"></i>
-                </span>Entrar/Cadastrar</a>
-        </li>
+                <i class="fas fa-user-check fa-sm"></i>
+                </span>
+                Bem Vindo, <strong>Visitante</strong>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item " href="{% url 'perfil:criar' %}">Cadastre - se </a>
+              <a class="dropdown-item " href="{% url 'perfil:login' %}">Faça seu Login </a>
+          </div>
+      </li>
        
         {% endif %}
         
       {% if request.session.carrinho %}
-      <li class="nav-item">
-        <a class="nav-link nav-cart-link active p-2 mb-2 bg-info text-white" href="{% url 'produto:carrinho' %}">
+      <li class="nav-item mr-5 p-2">
+        <a class="nav-link nav-cart-link active p-2 mb-2  text-white" href="{% url 'produto:carrinho' %}">
           <span class="nav-cart-text mr-1">Carrinho</span>
           <span class="nav-cart-icon mr-0">
             <i class="fas fa-shopping-cart"></i>
