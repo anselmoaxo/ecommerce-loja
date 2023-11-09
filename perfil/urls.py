@@ -1,5 +1,6 @@
-from django.urls import path
+from django.urls import path, reverse_lazy
 from . import views
+from django.contrib.auth import views as auth_view
 
 app_name = "perfil"
 
@@ -8,7 +9,7 @@ urlpatterns = [
     path("atualizar/", views.AtualizarPerfil.as_view(), name="atualizar"),
     path(
         "login/",
-        views.Login.as_view(),
+        auth_view.LoginView.as_view(template_name="login.html"),
         name="login",
     ),
     path("logout/", views.Logout.as_view(), name="logout"),

@@ -144,35 +144,6 @@ class AtualizarPerfil(View):
         return HttpResponse("Atualizar")
 
 
-class Login(View):
-    def post(self, *args, **kwargs):
-        username = self.request.POST.get("username")
-        password = self.request.POST.get("password")
-
-        if not username or not password:
-            # Se o nome de usuário ou senha estiverem em branco, exibe uma mensagem de erro
-            messages.error(self.request, "Usuário ou senha inválidos.")
-            return redirect("perfil:criar")
-
-        usuario = authenticate(self.request, username=username, password=password)
-
-        if not usuario:
-            # Se a autenticação falhar, exibe uma mensagem de erro
-            messages.error(self.request, "Usuário ou senha inválidos.")
-            return redirect("perfil:criar")
-
-        # Se a autenticação for bem-sucedida, faz login no usuário
-        login(self.request, user=usuario)
-
-        # Mensagem de sucesso
-        messages.success(
-            self.request, "Você fez login no sistema e pode concluir sua compra."
-        )
-
-        # Redireciona o usuário para a página de carrinho
-        return redirect("produto:carrinho")
-
-
 class Logout(View):
     def get(self, *args, **kwargs):
         carrinho = copy.deepcopy(self.request.session.get("carrinho"))

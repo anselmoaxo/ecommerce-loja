@@ -141,5 +141,9 @@ SESSION_SAVE_EVERY_REQUEST = False
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
+LOGIN_REDIRECT_URL = "produto:carrinho"
+LOGIN_URL = "perfil:login"
+
+
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 CRISPY_TEMPLATE_PACK = "bootstrap4"
