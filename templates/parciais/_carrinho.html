@@ -7,7 +7,7 @@
             <th class="d-none d-lg-block">Imagem</th>
             <th>Produto</th>
             <th>V.</th>
-            <th>QTD.</th>
+            <th>Quantidade</th>
             <th>Total</th>
         </tr>
         {% for linha  in  carrinho.values %}
@@ -24,7 +24,7 @@
                 </a>
             </td>
             <td>{{ linha.variacao_nome }}</td>
-            <td>{{ linha.quantidade }}x
+            <td> {{ linha.quantidade }}x
                 {% if linha.preco_unitario_promocional %}
                 {{ linha.preco_unitario_promocional | formata_preco}}
                 {% else %}

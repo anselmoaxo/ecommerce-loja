@@ -7,67 +7,14 @@
 {% load static %}
 
 {% block content %}
+    
+<h2>Confirme abaixo suas Compras</h2>
 <div class="row">
-    <div class="col shadow-sm p-1 mb-4 bg-white">
-        <h3>Escolha o método de pagamento</h3>
-        <div class="my-3">
-            <div class="form-check">
-              <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked="" required="">
-              <label class="form-check-label" for="credit">Cartão de Credito</label>
-            </div>
-            <div class="form-check">
-              <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required="">
-              <label class="form-check-label" for="debit">PIX</label>
-            </div>
-            <div class="form-check">
-              <input id="paypal" name="paymentMethod" type="radio" class="form-check-input" required="">
-              <label class="form-check-label" for="paypal">PayPal</label>
-            </div>
-          </div>
-<div class="row gy-3">
-            <div class="col-md-6">
-              <label for="cc-name" class="form-label">Nome no Cartão</label>
-              <input type="text" class="form-control" id="cc-name" placeholder="" required="">
-              <small class="text-muted">Nome completo conforme exibido no cartão</small>
-              <div class="invalid-feedback">
-                Name on card is required
-              </div>
-            </div>
-
-            <div class="col-md-6">
-              <label for="cc-number" class="form-label">Número do Cartão de Crédito</label>
-              <input type="text" class="form-control" id="cc-number" placeholder="" required="">
-              <div class="invalid-feedback">
-                Credit card number is required
-              </div>
-            </div>
-
-            <div class="col-md-3">
-              <label for="cc-expiration" class="form-label">Data Expiração</label>
-              <input type="text" class="form-control" id="cc-expiration" placeholder="" required="">
-              <div class="invalid-feedback">
-                Expiration date required
-              </div>
-            </div>
-
-            <div class="col-md-3">
-              <label for="cc-cvv" class="form-label">CVV</label>
-              <input type="text" class="form-control" id="cc-cvv" placeholder="" required="">
-              <div class="invalid-feedback">
-                Security code required
-              </div>
-            </div>
-          </div>
-          
-    </div>
-</div>
-<h2 class='text-center '>Confirme abaixo suas Compras</h2>
-<div class="row">
-    <div class="col shadow-sm p-1 mb-4 bg-white">
+    <div class="col-md-10 shadow-lg p-4 mb-4 bg-white">
         
         <h3>{{pedido}}</h3>
 
-        <div class="row mt-4">
+        <div class="row mt-2">
             <div class="col-lg-2 font-weight-bold">Número do pedido:</div>
             <div class="col-lg-4">{{pedido.id}}</div>
             <div class="col-lg-2 font-weight-bold">Total a pagar:</div>
@@ -118,7 +65,7 @@
 
         <div class="row mt-4">
             <div class="col">
-                <a href="{% url 'pedido:listar' %}"class="btn btn-primary btn-block btn-lg">Pagar</a>
+                <a href="{% url 'pedido:listar' %}"class="btn btn-primary btn-lg">Ver Meus Pedidos</a>
             </div>
         </div>
 

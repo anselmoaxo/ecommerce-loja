@@ -5,29 +5,25 @@ resumo de Compra| {% endblock %}
 {% block content %}
 
 
-<div class="row mb-5">
+<div class="row ">
+   
+    <div class="col-md-5">
+        <h3 class="text-center">IDENTIFICAÇÃO</h3>
     <div class="col-lg shadow-lg p-3 mb-2 bg-white">
-        <h2>Resumo da sua compra</h2>
+       
 
         <p class="lead">Dados do usuário</p>
         <p>Caso precise editar, <a href="{% url "perfil:criar" %}">clique aqui</a></p>
         <dl class="row">
-            <dt class="col-lg-2">Nome:</dt>
-            <dd class="col-lg-4">{{usuario.first_name}}</dd>
-            <dt class="col-lg-2">Sobrenome:</dt>
-            <dd class="col-lg-4">{{usuario.last_name}}</dd>
-
-            <dt class="col-lg-2">Idade:</dt>
-            <dd class="col-lg-4">{{usuario.perfil.idade}}</dd>
-            <dt class="col-lg-2">Nascimento:</dt>
-            <dd class="col-lg-4">{{usuario.perfil.data_nascimento}}</dd>
-
-            <dt class="col-lg-2">CPF:</dt>
-            <dd class="col-lg-4">{{usuario.perfil.cpf}}</dd>
+            <dt class="col-lg-1">Nome:</dt>
+            <dd class="col-lg-4">{{usuario.first_name}} {{usuario.last_name}}</dd>
+        
             <dt class="col-lg-2">E-mail:</dt>
-            <dd class="col-lg-4">{{usuario.email}}</dd>
+            <dd class="col">{{usuario.email}}</dd>
         </dl>
-
+    </div>
+    <h3 class="text-center">ENDEREÇO DE ENTREGA</h3>
+    <div class="col-lg shadow-lg p-3 mb-2 bg-white">
         <p class="lead">Dados de endereço</p>
         <p>Caso precise editar, <a href="{% url "perfil:criar" %}">clique aqui</a></p>
         <dl class="row">
@@ -50,45 +46,40 @@ resumo de Compra| {% endblock %}
             <dd class="col-lg-4">{{usuario.perfil.cep}}</dd>
         </dl>
     </div>
+    
+   
+    {% include "parciais/_pagamento.html" %}
+    <div class="col ">
+        <a class="btn btn-sm btn-primary" href="{% url "pedido:salvarpedido" %}">
+           FINALIZAR PEDIDO
+        </a>
+        <a class="btn btn-sm btn-secondary" href="{% url "produto:carrinho" %}">Voltar ao Carrinho</a>
+    </div>
+
 </div>
+   
 
 
-
-<div class="row">
+<div class="col-md-7">
+    <h3 class="text-center ">RESUMO DO PEDIDO</h3>
     <div class="col shadow-lg p-4 mb-4 bg-white">
-        <h3>Resumo de suas Compras</h3>
+        
         <p class="lead">Os produtos, quantidades e preços que você escolheu.</p>
 
         {% include "parciais/_carrinho.html" %}
-    </div>
+        
+        <div class="card-header font-weight-bold text-center">Resumo do Pedido</div>
+        <ul class="list-group list-group-flush ">
+            <li class="list-group-item text-right">SubTotal: {{carrinho|cart_totals|formata_preco}}</li>
+            <li class="list-group-item text-right">Entrega: R$ 0,00</li>
+            <li class="list-group-item text-right font-weight-bold">Total: {{carrinho|cart_totals|formata_preco}}</li>
+            
+        </ul>
     
-</div>
-<div class="col-lg  p-4 mb-4 bg-white">
-  
 
-    <div class='table-responsive'>
-        <table class="table">
-            <tr>
-                <td class='lead text-right'><span class='font-weight-bold border-bottom'>Total: {{carrinho| cart_totals | formata_preco}}</span></td>
-            </tr>
-        </table>
     </div>
     
-    
-</div>
 
-<div class="row">
-    <div class="col ">
-        <a class="btn btn-block btn-primary btn-lg" href="{% url "pedido:salvarpedido" %}">
-            Realizar pedido e pagar
-        </a>
-    </div>
-    <div class="col">
-        <a class="btn btn-block btn-primary btn-lg" href="{% url "produto:lista" %}">
-            Continuar comprando 
-        </a>
-    </div>
-</div>
 
 {% endblock  %}
 

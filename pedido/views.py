@@ -123,3 +123,12 @@ class Lista(DispatchLoginRequiredMixin, ListView):
     template_name = "listar.html"
     paginate_by = 10
     ordering = ["-id"]
+
+    def get_queryset(self):
+        # Obtém o usuário atualmente autenticado
+        user = self.request.user
+
+        # Filtra os pedidos do usuário atual
+        queryset = Pedido.objects.filter(usuario=user)
+
+        return queryset

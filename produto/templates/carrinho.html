@@ -1,61 +1,53 @@
 {% extends 'base.html' %} 
 {% load omfilters %}
 
-{% block titulo %}Carrinho de Compra | {% endblock %}
- {% block content %}
-
-{% if carrinho %}
-
-        <div class="row mt-3">
-            <div class="col shadow-sm p-1 mb-4 bg-white">
-                <h3>Carrinho de compras</h3>
-                <p class="lead">Os produtos, quantidades e preços que você escolheu.</p>
-
-               {% include "parciais/_carrinho.html" %}
-            </div>
-        </div>
-
-
-
-        <div class="row mt-3">
-            <div class="col-lg ">
-                <p class='lead'>Total no carrinho</p>
-
-                <div class='table-responsive'>
-                    <table class="table">
-                        <tr>
-                            <td class="font-weight-bold">Total</td>
-                            <td>{{carrinho| cart_totals | formata_preco}}</td>
-                        </tr>
-                    </table>
+{% block titulo %}Meu Carrinho | {% endblock %}
+{% block content %}
+    {% if carrinho %}
+        <div class="row">
+            <div class="col-md-7">
+                <h3 class="text-center">MEU CARRINHO</h3>
+                <div class="shadow-lg p-2 mb-4 bg-white">
+                    <p class="lead">Os produtos, quantidades e preços que você escolheu.</p>
+                    {% include "parciais/_carrinho.html" %}
                 </div>
             </div>
-            <div class="col-lg mt-auto">
 
-                {% if request.user.is_authenticated %}
-
-                <a class="btn btn-lg btn-block btn-primary" href="{% url "produto:resumodacompra" %}">
-                    Comprar
-                </a>
-
-                {% else %}
-                <a class="btn btn-lg btn-block btn-primary" href="{% url "perfil:criar" %}">
-                    Antes de Finalizar - Entrar/Cadastrar
-                </a>
-                {% endif %}
+            <div class="col-md-5 ">
+                <h3 class="text-center">RESUMO</h3>
+                <div class="card shadow-lg p-2 mb-4 bg-white" style="width: 25rem;">
+                    <div class="card-header font-weight-bold text-center">Resumo do Pedido</div>
+                    <ul class="list-group list-group-flush ">
+                        <li class="list-group-item">SubTotal: {{carrinho|cart_totals|formata_preco}}</li>
+                        <li class="list-group-item">Entrega: R$ 0,00</li>
+                        <li class="list-group-item">Total: {{carrinho|cart_totals|formata_preco}}</li>
+                    </ul>
+                </div>
+                <div class="col ">
+                    {% if request.user.is_authenticated %}
+                        <a class="btn btn-sm btn-secondary" href="{% url "produto:lista" %}">Adicionar mais produtos </a>
+                        <a class="btn btn-sm btn-primary" href="{% url "produto:resumodacompra" %}">FECHAR PEDIDO</a>
+                    {% else %}
+                        <a class="btn btn-sm btn-secondary" href="{% url "produto:lista" %}">Adicionar mais produtos </a>
+                        <a class="btn btn-sm btn-primary" href="{% url "perfil:login" %}">Antes de Finalizar - Entrar/Cadastrar</a>
+                    {% endif %}
+                </div>
             </div>
         </div>
-        {% else %}
-        <div class="row mt-3">
-            <div class="col shadow p-4 mb-4 bg-white">
-                <h3>Carrinho de compras</h3>
-                <p class="lead">Seu Carrinho está vazio</p>
-            </a>
-            <a class="ml-3" href="{% url "produto:lista" %}">
-                <p><i class="fa fa-shopping-cart" aria-hidden="true"></i> Voltar as Compras </p>
-            </a>
-
+    {% else %}
+    <div class="row mt-3">
+        <div class="col">
+            <div class="d-flex justify-content-center">
+                <i class="fas fa-shopping-cart text-secondary m-5" style="font-size: 5rem;"></i>
+            </div>
+    
+            <h3 class="text-center text-muted m-2">SEU CARRINHO ESTÁ VAZIO</h3>
+    
+            <p class="lead text-center">Navegue agora pelas categorias de nossa loja e escolha os produtos desejados para adicionar em seu carrinho de compras!</p>
+            <div class="d-flex justify-content-center">
+                <a class="btn btn-lg btn-secondary mt-5" href="{% url "produto:lista" %}">CONTINUAR COMPRANDO</a>
             </div>
         </div>
-        {% endif %}
+    </div>
+    {% endif %}
 {% endblock %}
