@@ -14,13 +14,10 @@ resumo de Compra| {% endblock %}
 
         <p class="lead">Dados do usuário</p>
         <p>Caso precise editar, <a href="{% url "perfil:criar" %}">clique aqui</a></p>
-        <dl class="row">
-            <dt class="col-lg-1">Nome:</dt>
-            <dd class="col-lg-4">{{usuario.first_name}} {{usuario.last_name}}</dd>
         
-            <dt class="col-lg-2">E-mail:</dt>
-            <dd class="col">{{usuario.email}}</dd>
-        </dl>
+            <span ><strong>Nome: </strong>{{usuario.first_name}} {{usuario.last_name}}</span>
+            <span ><strong>E-mail: </strong> {{usuario.email}}</span>
+       
     </div>
     <h3 class="text-center">ENDEREÇO DE ENTREGA</h3>
     <div class="col-lg shadow-lg p-3 mb-2 bg-white">
@@ -50,9 +47,10 @@ resumo de Compra| {% endblock %}
    
     {% include "parciais/_pagamento.html" %}
     <div class="col ">
-        <a class="btn btn-sm btn-primary" href="{% url "pedido:salvarpedido" %}">
-           FINALIZAR PEDIDO
-        </a>
+    <form method="post" action="{% url 'pedido:pagamento' %}">
+        {% csrf_token %}
+        <button class="btn btn-sm btn-primary"  type="submit">Realizar Pagamento</button>
+      </form>
         <a class="btn btn-sm btn-secondary" href="{% url "produto:carrinho" %}">Voltar ao Carrinho</a>
     </div>
 

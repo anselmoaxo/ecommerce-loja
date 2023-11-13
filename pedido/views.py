@@ -10,6 +10,7 @@ from django.contrib import messages
 from produto.models import Variacao
 from pedido.models import Pedido, ItemPedido
 from utils import utils
+from pixqrcodegen import Payload
 
 
 class DispatchLoginRequiredMixin(View):
@@ -132,3 +133,39 @@ class Lista(DispatchLoginRequiredMixin, ListView):
         queryset = Pedido.objects.filter(usuario=user)
 
         return queryset
+
+
+def gerador_pix(nome, chave_pix, valor, cidade, txt_id):
+    # Crie a payload PIX
+    payload = Payload(
+        nome=nome, chave=chave_pix, valor=valor, cidade=cidade, txid=txt_id
+    )
+
+    # Gere a Payload e retorne
+    return payload.gerarPayload()
+
+
+def pagar_pix(request):
+    resultado = None
+    pix = None
+
+    if request.method == "POST":
+        carrinho = request.session.get("carrinho", None)
+        resultado = utils.cart_totals(carrinho)
+
+        # Parâmetros para o gerador_pix
+        nome = "Anselmo Xavier"
+        chave_pix = "anselmo.cstecnologia@gmail.com"
+        valor = "1.00"
+        cidade = "Guarulhos"
+        txt_id = "Ecommerce_AXO"
+
+        # Chame a função gerador_pix
+        pix = gerador_pix(nome, chave_pix, valor, cidade, txt_id)
+
+    contexto = {
+        "resultado": resultado,
+        "pix": pix,
+    }
+
+    return render(request, "pagamento_pix.html", contexto)

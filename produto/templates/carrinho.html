@@ -14,6 +14,7 @@
             </div>
 
             <div class="col-md-5 ">
+               
                 <h3 class="text-center">RESUMO</h3>
                 <div class="card shadow-lg p-2 mb-4 bg-white" style="width: 25rem;">
                     <div class="card-header font-weight-bold text-center">Resumo do Pedido</div>
@@ -23,15 +24,26 @@
                         <li class="list-group-item">Total: {{carrinho|cart_totals|formata_preco}}</li>
                     </ul>
                 </div>
-                <div class="col ">
+               
+                    <span class="p-2">Compras acima de R$ 250,00 , <strong class="text-danger">Frete Grátis</strong></span>
+                    <div class="input-group  p-2 m-0 bg-white">
+                        <input type="text" class="form-control  " placeholder="digite seu CEP" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                          <button class="btn btn-outline-info" type="button">Calcular</button>
+                        </div>
+                      </div>
+                
+                <div class="col m-0 p-0">
+                   
                     {% if request.user.is_authenticated %}
-                        <a class="btn btn-sm btn-secondary" href="{% url "produto:lista" %}">Adicionar mais produtos </a>
+                        <a class="btn btn-sm btn-secondary " href="{% url "produto:lista" %}">Adicionar mais produtos </a>
                         <a class="btn btn-sm btn-primary" href="{% url "produto:resumodacompra" %}">FECHAR PEDIDO</a>
                     {% else %}
                         <a class="btn btn-sm btn-secondary" href="{% url "produto:lista" %}">Adicionar mais produtos </a>
                         <a class="btn btn-sm btn-primary" href="{% url "perfil:login" %}">Antes de Finalizar - Entrar/Cadastrar</a>
                     {% endif %}
                 </div>
+                
             </div>
         </div>
     {% else %}
