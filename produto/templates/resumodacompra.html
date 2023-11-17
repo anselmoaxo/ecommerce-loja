@@ -42,20 +42,19 @@ resumo de Compra| {% endblock %}
             <dt class="col-lg-2">CEP:</dt>
             <dd class="col-lg-4">{{usuario.perfil.cep}}</dd>
         </dl>
-    </div>
-    
    
-    {% include "parciais/_pagamento.html" %}
+</div>
+</div>
+
     <div class="col ">
-    <form method="post" action="{% url 'pedido:pagamento' %}">
-        {% csrf_token %}
-        <button class="btn btn-sm btn-primary"  type="submit">Realizar Pagamento</button>
-      </form>
+        
+            <a class="btn btn-sm btn-primary" href="{% url "pedido:salvarpedido" %}">
+               FINALIZAR PEDIDO
+            </a>
         <a class="btn btn-sm btn-secondary" href="{% url "produto:carrinho" %}">Voltar ao Carrinho</a>
     </div>
 
-</div>
-   
+
 
 
 <div class="col-md-7">
@@ -76,7 +75,11 @@ resumo de Compra| {% endblock %}
     
 
     </div>
+</div>
     
+</div>
+    
+</div>
 
 
 {% endblock  %}

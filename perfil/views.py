@@ -1,12 +1,12 @@
 from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import ListView
+from django.views.generic import ListView, CreateView
 from django.views import View
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 import copy
-
+from django.urls import reverse_lazy
 from . import models
 from . import forms
 
@@ -157,3 +157,32 @@ class Logout(View):
 
         # Redireciona o usuário para a lista de produtos
         return redirect("produto:lista")
+
+
+class EnderecoCreate(CreateView):
+    """
+    Classe de criação de itens de pedido.
+    Requer autenticação de login para acessar.
+    """
+
+    model = models.Endereco
+    fields = "__all__"
+    template_name = "endereco.html"
+    success_url = reverse_lazy("produto:lista")
+
+    def form_valid(self, form):
+        # Verifique se o usuário tem um perfil
+        if not hasattr(self.request.user, "perfil"):
+            # Se não tiver um perfil, crie um
+            perfil = models.Perfil(usuario=self.request.user)
+            perfil.save()
+
+        # Obtenha o perfil do usuário
+        perfil = self.request.user.perfil
+
+        # Associe o perfil ao endereço antes de salvar
+        endereco = form.save(commit=False)
+        endereco.perfil = perfil
+        endereco.save()
+
+        return super().form_valid(form)

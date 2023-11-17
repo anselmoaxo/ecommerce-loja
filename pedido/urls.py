@@ -12,5 +12,4 @@ urlpatterns = [
         views.DetalhePedido.as_view(),
         name="detalhar",
     ),
-    path("pagamento", views.pagar_pix, name="pagamento"),
 ]

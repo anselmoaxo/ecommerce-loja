@@ -6,6 +6,7 @@ app_name = "perfil"
 
 urlpatterns = [
     path("", views.CriarPerfil.as_view(), name="criar"),
+    path("endereco/", views.EnderecoCreate.as_view(), name="endereco"),
     path("atualizar/", views.AtualizarPerfil.as_view(), name="atualizar"),
     path(
         "login/",

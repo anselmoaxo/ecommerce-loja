@@ -1,0 +1,54 @@
+
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block titulo %}Cadastrar Endereço | {% endblock %}
+
+{% block content %}
+
+
+    {% block titulocadastro %}
+    <h2 class='text-center'>Identificação</h2>
+
+    {% endblock %}
+    <form action="" method="POST" class="mt-3 shadow-lg p-4 mb-4 bg-white"id="endereco-form" >
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                <label for="inputZip">CEP</label>
+                <input type="text" class="form-control" id="cep" required>
+            </div>
+            <div class="form-group col-md-7">
+                <label for="inputAddress">Endereço</label>
+                <input type="text" class="form-control" id="endereco" placeholder="Av Vinicius de Morais, 25" required>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="inputZip">Numero</label>
+                <input type="text" class="form-control" id="numero" required>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="inputAddress2">Complemento</label>
+                <input type="text" class="form-control text-secondary" id="complemento" placeholder="Exemplo: Apartamento, casa, sítio...">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="inputCity">Bairro</label>
+                <input type="text" class="form-control" id="bairro" required>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="inputCity">Cidade</label>
+                <input type="text" class="form-control" id="cidade" required>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="inputCity">Estado</label>
+                <input type="text" class="form-control" id="uf" required>
+            </div>
+        </div>
+    </form>
+    <div class="form-group col-md-12 text-info" id="feedback-container">
+        <label for="inputZip"></label>
+        <div id="feedback"></div>
+    </div>
+    <button type="button" class="btn btn-info btn-sm btn-block">Cadastrar Endereço</button>
+    {% endblock %}
+

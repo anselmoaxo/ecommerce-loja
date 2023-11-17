@@ -1,3 +1,5 @@
+from pixqrcodegen import Payload
+
 def formata_preco(val):
     return f" R${val:.2f}".replace(".", ",")
 
@@ -15,3 +17,4 @@ def cart_totals(carrinho):
             for item in carrinho.values()
         ]
     )
+
